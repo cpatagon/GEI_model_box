@@ -1,0 +1,154 @@
+\documentclass[10pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath,amsfonts,amssymb}
+\usepackage{graphicx}
+\usepackage{siunitx}
+\usepackage[spanish]{babel}
+\usepackage{csquotes}
+\usepackage[margin=2.5cm, headheight=35pt]{geometry}
+\usepackage{xcolor}
+\usepackage{fancyhdr}
+\usepackage{titlesec}
+\usepackage{tcolorbox}
+\usepackage[hidelinks]{hyperref}
+\usepackage[backend=biber,style=authoryear,sorting=nyt]{biblatex}
+
+% Definir colores
+\definecolor{wolkered}{RGB}{183,50,57}
+\definecolor{wolkeredlight}{RGB}{220,100,105}
+\definecolor{wolkegray}{RGB}{80,80,80}
+\definecolor{lightgray}{RGB}{240,240,240}
+
+% Configurar header y footer
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\includegraphics[height=0.8cm]{logo/logo-wolke.png}}
+\fancyhead[R]{\textcolor{wolkegray}{\small\textit{Fundamento del método de cámara abierta}}}
+\fancyfoot[C]{\textcolor{wolkegray}{\thepage}}
+\renewcommand{\headrulewidth}{0.5pt}
+\renewcommand{\footrulewidth}{0pt}
+\renewcommand{\headrule}{\hbox to\headwidth{\color{wolkered}\leaders\hrule height \headrulewidth\hfill}}
+
+% Formatear secciones
+\titleformat{\section}{\color{wolkered}\normalfont\Large\bfseries}{\color{wolkered}\thesection}{1em}{}[\color{wolkered}\titlerule]
+\titleformat{\subsection}{\color{wolkered}\normalfont\large\bfseries}{\color{wolkered}\thesubsection}{1em}{}
+
+% Bibliografía
+\addbibresource{referencias/referencias.bib}
+
+% Configurar título
+\usepackage{titling}
+% CORRECCIÓN: Agregar la extensión .png y usar la misma ruta
+\pretitle{\begin{center}\vspace{-2cm}\includegraphics[width=0.25\textwidth]{./logo/logo-wolke.png}\\[1cm]\LARGE\color{wolkered}\bfseries}
+	\posttitle{\end{center}\vspace{0.5cm}}
+\preauthor{\begin{center}\large}
+	\postauthor{\end{center}}
+\predate{\begin{center}\normalsize\color{wolkegray}}
+	\postdate{\end{center}\vspace{1cm}}
+
+\title{Fundamento teórico del método de cámara abierta\\[0.3cm]\Large GEIKO: medición de flujos de gases de efecto invernadero}
+\author{\textbf{Equipo GEIKO}\\[0.3cm]WOLKE}
+\date{Octubre 2025}
+
+
+\begin{document}
+\maketitle
+\thispagestyle{empty}
+
+\begin{tcolorbox}[colback=lightgray,colframe=wolkered,boxrule=1.5pt,arc=3mm,left=5mm,right=5mm,top=5mm,bottom=5mm]
+\textbf{Resumen ejecutivo.} GEIKO es el instrumento de WALKE para estimar flujos de gases de efecto invernadero mediante cámaras de flujo abiertas. Este informe resume la evaluación inicial de distintas condiciones de caudal, ruido instrumental y ventanas de muestreo sobre la estimación de flujos superficiales. Esto con el objetivo de contar un modelo teórico que permita poder probar distintas configuraciones de la cámara.
+
+
+\end{tcolorbox}
+
+\section{Introducción}
+El instrumento GEIKO utiliza la configuración de cámara abierta para capturar los gases emitidos desde la superficie del agua. Basado en el modelo físico-matemático documentado en este proyecto, se simuló el comportamiento de una cámara cúbica de 100~L apoyada directamente en la lámina de agua, considerando diferentes flujo de gases y ruido similar al de sensores NDIR.
+
+\section{Objetivos}
+\begin{itemize}
+  \item Evaluar mediante modelo distintas configuraciones de la cámara Geiko.
+  \item Cuantificar la evolución de la concentraciones del gas en la cámara de muestreo al variar los flujos de emisión.
+  \item Estimar el impacto de estas variaciones sobre el tiempo característico (\(\theta = V_c / Q\)) y la convergencia de la concentración a \(C_G\).
+  \item Evaluar cómo el muestreo cada 30~s y un ruido de 1~ppm afectan la estimación del flujo superficial mediante el ajuste exponencial.
+  \item Comparar los flujos estimados frente al valor teórico para distintos escenarios de operación.
+\end{itemize}
+
+\section{Metodología}
+Se partió de la configuración de parámetros iniciales  descrita en la cuadro \ref{tab:parametros_ini} (\texttt{default.yaml}). Para los escenarios de caudal se crearon archivos específicos (\texttt{flow\_low}, \texttt{flow\_mid}, \texttt{flow\_high}) que varían los flujos de gas sobre un área de \SI{0.01}{m^2} de muestreo. Se mantiene constante la geometría  de la cámara. Cada simulación se agrega ruido gaussiano (\SI{1}{ppm}) con semillas independientes, simulando errores asociados al instrumento. No se considera variabilidad en los flujos. Se muestrea cada \SI{30}{s} para replicar la latencia del sensor. Las curvas muestreadas se ajustan con el modelo y mediante una regresión no lineal de mínimos cuadrados en el archivo \texttt{scripts/fit\_from\_csv.py}. Con este calculo se obtiene los parámetros \(C_G\), \(\theta\) y el flujo superficial. Por último se compara el valor medido con el valor estimado.
+
+\begin{table}[h]
+  \centering
+  \caption{Parámetros iniciales utilizados en las simulaciones GEIKO.}
+  \label{tab:parametros_ini}
+  \vspace{0.5cm}
+  \begin{tabular}{lcccc}
+    \hline
+    Parámetro & Valor & Unidad & Nota \\
+    \hline
+    \(V_c\) & 0.1 & m$^3$ & Cámara cúbica GEIKO \\
+    \(A_c = A_{in}\) & 0.01 & m$^2$ & Huella = sección de entrada \\
+    \(A_{out}\) & $1.27\times10^{-4}$ & m$^2$ & Tubo 1/2" equivalente \\
+    \(C_A\) & 420 & ppm & Fondo ambiental \\
+    \(C_G\) & 470 & ppm & Objetivo de simulación \\
+    Ruido & 1 & ppm & Desvío estándar (sensor NDIR) \\
+    Muestreo & 30 & s & Intervalo de captura \\
+    Caudal \(Q\) & 0.001 / 0.002 / 0.004 & m$^3$/s & Escenarios bajo/medio/alto \\
+    \hline
+  \end{tabular}
+\end{table}
+
+\section{Resultados}
+\subsection{Comparativa de curvas}
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=0.9\textwidth]{../../data/processed/simulation_flow_compare.png}
+  \caption{Curvas simuladas (línea sólida), muestreo cada 30~s (puntos) y ajuste exponencial (línea segmentada) para tres caudales.}
+\end{figure}
+
+\subsection{Resumen numérico}
+\begin{table}[h]
+  \centering
+  \caption{Impacto del caudal sobre la convergencia a \(C_G = 470\) ppm.}
+    \vspace{0.5cm}
+  \begin{tabular}{lcccc}
+    \hline
+    Escenario & Caudal (m$^3$/s) & \(\theta\) (s) & C(180 s) [ppm] & \(t_{95}\) (s) \\
+    \hline
+    Bajo & 0.001 & 100 & 460.7 & -- \\
+    Medio & 0.002 & 50 & 467.6 & 139 \\
+    Alto & 0.004 & 25 & 468.9 & 72 \\
+    \hline
+  \end{tabular}
+\end{table}
+
+\begin{table}[h]
+  \centering
+  \caption{Comparación entre flujo teórico y estimado a partir del muestreo cada 30 s.}
+  \begin{tabular}{lccc}
+    \hline
+    Escenario & Flujo real (mg·m$^{-2}$·h$^{-1}$) & Flujo estimado & Error \\
+    \hline
+    Bajo & 5.0 & 4.93 & $-1.4\%$ \\
+    Medio & 10.0 & 8.57 & $-14.3\%$ \\
+    Alto & 20.0 & 19.42 & $-2.9\%$ \\
+    \hline
+  \end{tabular}
+\end{table}
+
+\section{Conclusiones}
+\begin{itemize}
+  \item El incremento del caudal reduce el tiempo característico y permite alcanzar más del 95~\% del salto de concentración dentro de los 180~s de campaña.
+  \item Con un ruido instrumental de 1~ppm, el ajuste recupera flujos con errores inferiores a 3~\% para caudales bajos y altos; el escenario medio requiere optimizar ventana o muestreo para reducir el sesgo.
+
+\end{itemize}
+
+\section{Próximos pasos}
+\begin{enumerate}
+  \item Incorporar el ajuste exponencial en los notebooks interactivos para que los usuarios varíen caudales y ruido en tiempo real.
+  \item Extender las pruebas a caudales mayores y a distintas geometrías (p. ej. cámaras cilíndricas) ajustando `Aout`.
+  \item Documentar campañas de validación en terreno y consolidar bibliografía en `referencias/referencias.bib`.
+\end{enumerate}
+
+\printbibliography
+\end{document}

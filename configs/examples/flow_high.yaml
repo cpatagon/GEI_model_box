@@ -1,0 +1,20 @@
+camera:
+  Vc_m3: 0.1
+  Ac_m2: 0.01
+  Ain_m2: 0.01
+  Aout_m2: 0.000127
+simulation:
+  target_cg_ppm: 470
+  noise_ppm_std: 1.0
+  noise_seed: 303
+scenario:
+  duration_s: 180
+  label: flow_high
+ambient:
+  CA_ppm: 420
+inflow:
+  mode: area_velocity
+  area_m2: 0.01
+  velocity_ms: 0.4  # Q = 0.004 m3/s
+output:
+  folder: data/processed

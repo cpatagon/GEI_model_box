@@ -1,0 +1,15 @@
+camera:
+  Vc_m3: 0.01
+  Ac_m2: 0.07
+ambient:
+  CA_ppm: 415
+simulation:
+  target_cg_ppm: 470
+scenario:
+  label: fixture
+  duration_s: 4
+inflow:
+  mode: timeseries
+  file: tests/fixtures/flow_timeseries.csv
+output:
+  folder: data/processed

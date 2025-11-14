@@ -1,0 +1,8 @@
+#!/media/lgomez/f3209ad9-f8c7-4716-a8ed-c2426f0d6f9a/lgomez/Documentos/Wolke/Geiko/modelo/.venv/bin/python
+# -*- coding: utf-8 -*-
+import re
+import sys
+from jupyter_core.migrate import main
+if __name__ == '__main__':
+    sys.argv[0] = re.sub(r'(-script\.pyw|\.exe)?$', '', sys.argv[0])
+    sys.exit(main())

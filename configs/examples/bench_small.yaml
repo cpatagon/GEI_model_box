@@ -1,0 +1,4 @@
+include: ../default.yaml
+scenario:
+  label: bench_small
+  duration_s: 120

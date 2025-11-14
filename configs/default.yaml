@@ -1,0 +1,24 @@
+gas: CO2
+T_K: 298.15
+P_Pa: 101325
+camera:
+  Vc_m3: 0.1
+  Ac_m2: 0.01
+  Ain_m2: 0.01
+  Aout_m2: 0.000127
+simulation:
+  target_cg_ppm: 470
+  noise_ppm_std: 1.0
+  noise_seed: 2024
+fitting:
+  use_bootstrap: true
+  n_bootstrap: 200
+  min_window_s: 10
+  max_window_s: 180
+ambient:
+  CA_ppm: 420
+inflow:
+  mode: timeseries
+  file: data/raw/qg_series.csv
+output:
+  folder: data/processed/

@@ -1,0 +1,9 @@
+[0] Config.pm:304> INFO - This is Biber 2.14 (beta)
+[0] Config.pm:307> INFO - Logfile is 'geiko_flow_effects.blg'
+[67] biber:322> INFO - === jue nov 13, 2025, 19:13:14
+[80] Biber.pm:415> INFO - Reading 'geiko_flow_effects.bcf'
+[137] Biber.pm:943> INFO - Found 0 citekeys in bib section 0
+[143] Utils.pm:293> WARN - The file 'geiko_flow_effects.bcf' does not contain any citations!
+[149] bbl.pm:652> INFO - Writing 'geiko_flow_effects.bbl' with encoding 'UTF-8'
+[150] bbl.pm:755> INFO - Output to geiko_flow_effects.bbl
+[150] Biber.pm:128> INFO - WARNINGS: 1

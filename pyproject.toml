@@ -1,0 +1,10 @@
+[project]
+name = "ofc-model"
+version = "0.1.0"
+description = "Open flux chamber simulation and fitting toolkit"
+requires-python = ">=3.10"
+dependencies = []
+
+[build-system]
+requires = ["setuptools", "wheel"]
+build-backend = "setuptools.build_meta"

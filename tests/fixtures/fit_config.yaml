@@ -1,0 +1,7 @@
+camera:
+  Vc_m3: 0.01
+  Ac_m2: 0.07
+ambient:
+  CA_ppm: 420
+output:
+  folder: data/processed
