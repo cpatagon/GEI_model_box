@@ -36,6 +36,9 @@ ofc-model/
 ├─ notebooks/
 │  ├─ 00_quickstart.ipynb
 │  └─ 01_fit_from_timeseries.ipynb
+├─ informe/
+│  └─ flow_effects/
+│     └─ geiko_flow_effects.tex
 ├─ src/
 │  └─ ofc_model/
 │     ├─ __init__.py
@@ -55,6 +58,15 @@ ofc-model/
    ├─ simulate_case.py
    └─ fit_from_csv.py
 ```
+
+### Índice rápido de archivos clave
+- `configs/default.yaml`: Cámara cúbica GEIKO (100 L), ruido configurable y parámetros por defecto.
+- `configs/examples/flow_low.yaml`, `flow_mid.yaml`, `flow_high.yaml`: escenarios de caudal bajo/medio/alto para evaluar el efecto sobre \(\theta\).
+- `data/processed/simulation_flow_*.csv` y `_samples_30s.csv`: curvas completas y muestreo cada 30 s; imágenes asociadas en `.png`.
+- `reports/notebook_run.md`, `reports/notebook_run_cubo.md`, `reports/flow_effects.md`: reportes en Markdown con resultados y análisis.
+- `informe/flow_effects/geiko_flow_effects.tex`: informe técnico en LaTeX listo para compilar con el formato corporativo de WALKE.
+- `scripts/simulate_case.py`, `scripts/fit_from_csv.py`: CLI principales para reproducir simulaciones y ajustes.
+
 
 ---
 

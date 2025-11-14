@@ -1,0 +1,43 @@
+# LaTeX build artifacts
+*.aux
+*.bbl
+*.blg
+*.log
+*.out
+*.toc
+*.synctex.gz
+*.fdb_latexmk
+*.fls
+*.nav
+*.snm
+*.vrb
+informe/flow_effects/*.pdf
+informe/flow_effects/*.aux
+informe/flow_effects/*.bbl
+informe/flow_effects/*.blg
+
+# Python caches
+__pycache__/
+*.pyc
+
+# Virtual environments and build metadata
+.venv/
+env/
+*.egg-info/
+build/
+dist/
+
+# Jupyter checkpoints
+.ipynb_checkpoints/
+
+# OS / editor files
+.DS_Store
+Thumbs.db
+.vscode/
+
+# Generated data artifacts
+data/processed/*.parquet
+data/processed/*.pdf
+
+# Agent configuration
+AGENTS.md
